@@ -26,7 +26,7 @@ tot_day <- tapply(df$steps, df$date, sum, na.rm=TRUE)
 hist(as.numeric(tot_day), xlab='Steps per day', ylab='Frequency', main='Number of steps per day')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 
 We then calculate the mean and the median of the number of steps per day with the following code
 
@@ -49,7 +49,7 @@ avg_int <- tapply(df$steps, df$interval, mean, na.rm=TRUE)
 plot(unique(df$interval), as.numeric(avg_int), type='l', xlab='Time Interval', ylab='Average number of steps')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 We then calculate the time interval in which the highest average value of steps is registered.
 
@@ -80,26 +80,6 @@ We replace missing values by the average number of steps in the corresponding ti
 
 ```r
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 df$interval <- as.integer((df$interval))
 interval_minutes <- 0.6*(df$interval - df$interval %% 100) + df$interval %% 100
 dfNoNa <- df %>% mutate(steps = ifelse(is.na(steps), avg_int[interval_minutes / 5], steps))
@@ -107,7 +87,7 @@ tot_dayNoNa <- tapply(dfNoNa$steps, dfNoNa$date, sum, na.rm=TRUE)
 hist(as.numeric(tot_dayNoNa), xlab='Steps per day', ylab='Frequency', main='Number of steps per day (No NA)')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
 
 and we calculate the corresponding mean and median
 
@@ -155,7 +135,7 @@ plot(unique(df_wd$interval), as.numeric(avg_WD), type='l', xlab='Time interval',
 plot(unique(df_we$interval), as.numeric(avg_WE), type='l', xlab='Time interval', ylab='Average steps per inteval', main='Weekends')
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
 
 It is evident that on weekends the average number of steps in the second part of the day has increased with respect to the same time interval on weekdays.
 
